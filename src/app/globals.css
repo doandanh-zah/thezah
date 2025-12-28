@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-black: #0a0a0a;
+  --secondary-black: #111111;
+  --accent-yellow: #FFD700;
+  --accent-orange: #FFA500;
+  --pure-white: #FFFFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--primary-black);
+  color: var(--pure-white);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-yellow);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-orange);
+}
+
+/* Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff0000;
+  clip-path: inset(0 0 0 0);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: 2px 0 #00ffff;
+  clip-path: inset(0 0 0 0);
+  animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 60% 0); }
+  20% { clip-path: inset(60% 0 20% 0); }
+  40% { clip-path: inset(40% 0 40% 0); }
+  60% { clip-path: inset(80% 0 10% 0); }
+  80% { clip-path: inset(10% 0 80% 0); }
+  100% { clip-path: inset(50% 0 30% 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(60% 0 20% 0); }
+  20% { clip-path: inset(20% 0 60% 0); }
+  40% { clip-path: inset(80% 0 10% 0); }
+  60% { clip-path: inset(40% 0 40% 0); }
+  80% { clip-path: inset(30% 0 50% 0); }
+  100% { clip-path: inset(10% 0 80% 0); }
+}
+
+/* Profile Image Flip Effect */
+.profile-flip-container {
+  perspective: 1000px;
+}
+
+.profile-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.profile-flip-container:hover .profile-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.profile-flip-front,
+.profile-flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-flip-back {
+  transform: rotateY(180deg);
+}
+
+/* Glitch Image Effect */
+.glitch-image {
+  position: relative;
+}
+
+.glitch-image::before,
+.glitch-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.glitch-image:hover::before {
+  opacity: 0.8;
+  animation: glitch-anim-1 0.2s infinite linear alternate-reverse;
+  filter: hue-rotate(90deg);
+}
+
+.glitch-image:hover::after {
+  opacity: 0.8;
+  animation: glitch-anim-2 0.2s infinite linear alternate-reverse;
+  filter: hue-rotate(-90deg);
+}
+
+/* Magnetic Button */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Yellow Glow Effect */
+.yellow-glow {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3),
+              0 0 40px rgba(255, 215, 0, 0.1),
+              0 0 60px rgba(255, 215, 0, 0.05);
+}
+
+.yellow-glow:hover {
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5),
+              0 0 60px rgba(255, 215, 0, 0.3),
+              0 0 90px rgba(255, 215, 0, 0.1);
+}
+
+/* Scan Line Effect */
+.scan-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.5), transparent);
+  animation: scan-line 3s linear infinite;
+}
+
+@keyframes scan-line {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}
+
+/* Timeline Line */
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent-yellow), var(--accent-orange), var(--accent-yellow));
+}
+
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 20px;
+  }
+}
+
+/* Card Tilt Effect */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+/* Ripple Effect */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.3);
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Token Rain */
+.token {
+  position: fixed;
+  font-size: 24px;
+  animation: token-fall linear forwards;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+@keyframes token-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Custom Cursor Styles */
+.custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  mix-blend-mode: difference;
+}
+
+/* Pill Button */
+.pill-btn {
+  @apply px-6 py-3 rounded-full font-medium transition-all duration-300;
+  @apply bg-secondary-black/50 backdrop-blur-md border border-white/10;
+  @apply hover:border-accent-yellow hover:shadow-[0_0_20px_rgba(255,215,0,0.3)];
+}
+
+/* Section Title */
+.section-title {
+  @apply text-4xl md:text-5xl font-bold font-display;
+  @apply bg-gradient-to-r from-accent-yellow via-accent-orange to-accent-yellow;
+  @apply bg-clip-text text-transparent;
+}
+
+/* Tech Card */
+.tech-card {
+  @apply p-4 rounded-xl bg-secondary-black/50 backdrop-blur-md border border-white/5;
+  @apply transition-all duration-300;
+  @apply hover:border-accent-yellow/50 hover:scale-105;
+  @apply hover:shadow-[0_0_30px_rgba(255,215,0,0.2)];
+}
+
+/* Project Card */
+.project-card {
+  @apply relative overflow-hidden rounded-2xl bg-secondary-black/50 backdrop-blur-md;
+  @apply border border-white/5 transition-all duration-500;
+  @apply hover:border-accent-yellow/50 hover:-translate-y-2;
+  @apply hover:shadow-[0_0_40px_rgba(255,215,0,0.3)];
+}
+
+/* Achievement Card */
+.achievement-card {
+  @apply relative p-6 rounded-2xl bg-secondary-black/50 backdrop-blur-md;
+  @apply border border-white/10 transition-all duration-300;
+  @apply hover:border-accent-yellow;
+}
+
+.achievement-card::before {
+  content: '';
+  @apply absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
+}
+
+.achievement-card:hover::before {
+  @apply opacity-100;
+}
