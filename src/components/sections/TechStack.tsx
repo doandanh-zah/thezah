@@ -11,7 +11,6 @@ const techCategories = [
 			{ name: "Solana", icon: "◎" },
 			{ name: "Anchor", icon: "⚓" },
 			{ name: "Rust", icon: "🦀" },
-			{ name: "Metaplex", icon: "🎨" },
 		],
 	},
 	{
@@ -21,6 +20,7 @@ const techCategories = [
 			{ name: "React", icon: "⚛️" },
 			{ name: "TypeScript", icon: "TS" },
 			{ name: "TailwindCSS", icon: "🎨" },
+			{ name: "Vite", icon: "⚡" },
 		],
 	},
 	{
@@ -37,6 +37,10 @@ const techCategories = [
 			{ name: "Git", icon: "📦" },
 			{ name: "Vercel", icon: "▲" },
 			{ name: "Figma", icon: "🎨" },
+			{ name: "Railway", icon: "🚃" },
+			{ name: "Linux CLI", icon: "🐧" },
+			{ name: "Render", icon: "🔷" },
+			{ name: "Digital Ocean", icon: "🌊" },
 		],
 	},
 ];
@@ -120,7 +124,7 @@ export default function TechStack() {
 				>
 					<p className="text-white/50 font-mono text-sm mb-4">{t.tech.also}</p>
 					<div className="flex flex-wrap justify-center gap-3">
-						{["Python", "Docker", "MongoDB", "GraphQL", "Web3.js", "Phantom"].map(
+						{["Docker", "GraphQL", "Web3.js", "Solidity", "Helius RPC", "Lazorkit SDK", "Wallet Adapters"].map(
 							(skill, index) => (
 								<motion.span
 									key={skill}

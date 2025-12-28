@@ -18,7 +18,7 @@ export default function Timeline() {
       organization: "Da Nang University of Science and Technology (DUT)",
       role: t.timeline.items.dut.role,
       period: "Aug 2024 - Present",
-      logo: null,
+      logo: "/assets/dut.jpg",
       logoText: "DUT",
       description: t.timeline.items.dut.description,
       side: "left",

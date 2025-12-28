@@ -10,7 +10,8 @@ export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   
-  const springConfig = { damping: 25, stiffness: 400 };
+  // Smoother spring config for more fluid movement
+  const springConfig = { damping: 20, stiffness: 300, mass: 0.5 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
@@ -68,10 +69,10 @@ export default function CustomCursor() {
       >
         <motion.div
           animate={{
-            scale: isHovering ? 2 : 1,
-            opacity: isHovering ? 0.5 : 1,
+            scale: isHovering ? 1.8 : 1,
+            opacity: isHovering ? 0.6 : 1,
           }}
-          transition={{ duration: 0.2 }}
+          transition={{ type: "spring", damping: 15, stiffness: 200 }}
           className="relative -translate-x-1/2 -translate-y-1/2"
         >
           {/* Inner dot */}
@@ -86,37 +87,11 @@ export default function CustomCursor() {
               scale: isHovering ? 1.5 : 1,
               opacity: isHovering ? 1 : 0.5,
             }}
+            transition={{ type: "spring", damping: 15, stiffness: 200 }}
             className="absolute -inset-2 border border-accent-yellow/50 rounded-full"
           />
         </motion.div>
       </motion.div>
-
-      {/* Trail effect */}
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="custom-cursor hidden md:block"
-          style={{
-            x: cursorXSpring,
-            y: cursorYSpring,
-            opacity: isVisible ? (0.3 - i * 0.05) : 0,
-          }}
-          transition={{ delay: i * 0.02 }}
-        >
-          <motion.div
-            className="relative -translate-x-1/2 -translate-y-1/2"
-            style={{ scale: 1 + i * 0.2 }}
-          >
-            <div 
-              className="w-2 h-2 bg-accent-yellow/30 rounded-full blur-sm"
-              style={{ 
-                transform: `scale(${1 + i * 0.3})`,
-                opacity: 0.5 - i * 0.1 
-              }}
-            />
-          </motion.div>
-        </motion.div>
-      ))}
 
       {/* Hide default cursor */}
       <style jsx global>{`

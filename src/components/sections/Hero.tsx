@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
@@ -47,33 +47,14 @@ const socialLinks = [
 
 export default function Hero() {
 	const [isFlipped, setIsFlipped] = useState(false);
-	const [isGlitching, setIsGlitching] = useState(false);
-	const [glitchIntensity, setGlitchIntensity] = useState(0);
 	const { t } = useLanguage();
 
-	// Continuous subtle glitch effect when hovering
-	useEffect(() => {
-		let interval: NodeJS.Timeout;
-		if (isGlitching) {
-			interval = setInterval(() => {
-				setGlitchIntensity(Math.random());
-			}, 50);
-		}
-		return () => clearInterval(interval);
-	}, [isGlitching]);
-
 	const handleImageHover = () => {
-		setIsGlitching(true);
-		setTimeout(() => {
-			setIsFlipped(true);
-		}, 400);
+		setIsFlipped(true);
 	};
 
 	const handleImageLeave = () => {
-		setTimeout(() => {
-			setIsFlipped(false);
-			setTimeout(() => setIsGlitching(false), 400);
-		}, 100);
+		setIsFlipped(false);
 	};
 
 	return (
@@ -205,7 +186,7 @@ export default function Hero() {
 						</motion.div>
 					</motion.div>
 
-					{/* Profile Image with Enhanced Glitch Flip Effect */}
+					{/* Profile Image with Flip Effect */}
 					<motion.div
 						initial={{ opacity: 0, x: 50 }}
 						animate={{ opacity: 1, x: 0 }}
@@ -217,95 +198,6 @@ export default function Hero() {
 							onMouseEnter={handleImageHover}
 							onMouseLeave={handleImageLeave}
 						>
-							{/* Enhanced Glitch Overlay */}
-							<div
-								className={`absolute inset-0 z-20 pointer-events-none transition-opacity duration-200 ${
-									isGlitching ? "opacity-100" : "opacity-0"
-								}`}
-							>
-								{/* RGB Split Layers */}
-								<div
-									className="absolute inset-0 rounded-full overflow-hidden mix-blend-screen"
-									style={{
-										transform: `translate(${
-											glitchIntensity * 8 - 4
-										}px, ${glitchIntensity * 4 - 2}px)`,
-										filter: "hue-rotate(-60deg)",
-										opacity: 0.7,
-									}}
-								>
-									<div className="w-full h-full bg-red-500/40" />
-								</div>
-								<div
-									className="absolute inset-0 rounded-full overflow-hidden mix-blend-screen"
-									style={{
-										transform: `translate(${
-											-glitchIntensity * 8 + 4
-										}px, ${-glitchIntensity * 4 + 2}px)`,
-										filter: "hue-rotate(60deg)",
-										opacity: 0.7,
-									}}
-								>
-									<div className="w-full h-full bg-cyan-500/40" />
-								</div>
-
-								{/* Scan Lines */}
-								<div className="absolute inset-0 rounded-full overflow-hidden">
-									{[...Array(20)].map((_, i) => (
-										<div
-											key={i}
-											className="absolute w-full h-px bg-white/20"
-											style={{
-												top: `${i * 5 + glitchIntensity * 3}%`,
-												opacity: glitchIntensity > 0.5 ? 0.3 : 0.1,
-											}}
-										/>
-									))}
-								</div>
-
-								{/* Glitch Blocks */}
-								<div
-									className="absolute rounded-full overflow-hidden bg-accent-yellow/30"
-									style={{
-										top: `${20 + glitchIntensity * 30}%`,
-										left: 0,
-										right: 0,
-										height: `${5 + glitchIntensity * 10}%`,
-										transform: `translateX(${glitchIntensity * 20 - 10}px)`,
-									}}
-								/>
-								<div
-									className="absolute rounded-full overflow-hidden bg-red-500/30"
-									style={{
-										top: `${50 + glitchIntensity * 20}%`,
-										left: 0,
-										right: 0,
-										height: `${3 + glitchIntensity * 5}%`,
-										transform: `translateX(${
-											-glitchIntensity * 15 + 7
-										}px)`,
-									}}
-								/>
-								<div
-									className="absolute rounded-full overflow-hidden bg-cyan-500/30"
-									style={{
-										top: `${70 + glitchIntensity * 15}%`,
-										left: 0,
-										right: 0,
-										height: `${4 + glitchIntensity * 8}%`,
-										transform: `translateX(${glitchIntensity * 12 - 6}px)`,
-									}}
-								/>
-
-								{/* Noise */}
-								<div
-									className="absolute inset-0 rounded-full opacity-30"
-									style={{
-										backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-									}}
-								/>
-							</div>
-
 							{/* Flip Container */}
 							<div
 								className="relative w-full h-full transition-all duration-700"
@@ -314,22 +206,20 @@ export default function Hero() {
 									transformStyle: "preserve-3d",
 								}}
 							>
-								{/* Front - Personal Photo / Placeholder */}
+								{/* Front - Personal Photo */}
 								<div
 									className="absolute inset-0 rounded-full overflow-hidden border-4 border-accent-yellow/50 yellow-glow"
 									style={{ backfaceVisibility: "hidden" }}
 								>
-									<div className="w-full h-full bg-gradient-to-br from-accent-yellow/20 to-accent-orange/20 flex items-center justify-center relative">
-										<span className="text-6xl md:text-8xl font-bold font-display text-accent-yellow">
-											Z
-										</span>
-										{/* Animated gradient overlay */}
-										<div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent animate-pulse" />
-									</div>
-									{/* Scan Line */}
-									<div className="absolute inset-0 overflow-hidden rounded-full">
-										<div className="scan-line" />
-									</div>
+									<Image
+										src="/assets/zah.jpg"
+										alt="Zah - Đoàn Đỗ Thành Danh"
+										fill
+										className="object-cover"
+										priority
+									/>
+									{/* Subtle gradient overlay */}
+									<div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent" />
 								</div>
 
 								{/* Back - NFT Image */}
@@ -373,7 +263,7 @@ export default function Hero() {
 							{/* Hover hint */}
 							<motion.div
 								initial={{ opacity: 0 }}
-								animate={{ opacity: isGlitching ? 0 : 1 }}
+								animate={{ opacity: isFlipped ? 0 : 1 }}
 								className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-white/30 text-xs font-mono whitespace-nowrap"
 							>
 								hover for NFT

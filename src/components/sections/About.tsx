@@ -12,9 +12,9 @@ export default function About() {
   const { t } = useLanguage();
 
   const stats = [
-    { label: t.about.stats.projects, value: "10+" },
+    { label: t.about.stats.projects, value: "5+" },
     { label: t.about.stats.years, value: "1+" },
-    { label: t.about.stats.members, value: "100+" },
+    { label: t.about.stats.members, value: "30+" },
     { label: t.about.stats.hackathons, value: "5+" },
   ];
 
@@ -102,24 +102,30 @@ export default function About() {
               <div className="w-3 h-3 rounded-full bg-red-500" />
               <div className="w-3 h-3 rounded-full bg-yellow-500" />
               <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span className="ml-2 text-white/30">zah.sol</span>
+              <span className="ml-2 text-white/30">lilzah.sol</span>
             </div>
             <pre className="text-white/70 overflow-x-auto">
               <code>
                 <span className="text-purple-400">const</span>{" "}
-                <span className="text-blue-400">zah</span> = {`{`}
+                <span className="text-blue-400">lilzah</span> = {`{`}
                 {"\n"}
                 {"  "}<span className="text-green-400">name</span>:{" "}
                 <span className="text-accent-yellow">&quot;Đoàn Đỗ Thành Danh&quot;</span>,
                 {"\n"}
+                {"  "}<span className="text-green-400">alias</span>:{" "}
+                <span className="text-accent-yellow">&quot;Zah | Lil Zah&quot;</span>,
+                {"\n"}
                 {"  "}<span className="text-green-400">role</span>:{" "}
-                <span className="text-accent-yellow">&quot;Solana Buidler&quot;</span>,
+                <span className="text-accent-yellow">&quot;Solana BUIDLER&quot;</span>,
                 {"\n"}
                 {"  "}<span className="text-green-400">location</span>:{" "}
                 <span className="text-accent-yellow">&quot;Da Nang, Vietnam&quot;</span>,
                 {"\n"}
                 {"  "}<span className="text-green-400">passion</span>:{" "}
                 <span className="text-accent-yellow">&quot;Building the future of Web3&quot;</span>,
+                {"\n"}
+                {"  "}<span className="text-green-400">community</span>:{" "}
+                <span className="text-accent-yellow">&quot;DSUC Leader&quot;</span>,
                 {"\n"}
                 {`}`};
               </code>

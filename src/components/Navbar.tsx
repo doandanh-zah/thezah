@@ -42,16 +42,8 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <Link href="/" className="group relative">
-              <motion.span
-                className="text-2xl font-bold font-display text-accent-yellow"
-                whileHover={{ scale: 1.05 }}
-              >
-                ZAH
-                <span className="absolute -inset-1 bg-accent-yellow/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity rounded" />
-              </motion.span>
-            </Link>
+            {/* Logo - Hidden */}
+            <div className="w-16" /> {/* Spacer to maintain layout */}
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">

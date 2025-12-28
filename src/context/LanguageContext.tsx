@@ -110,14 +110,14 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: "// Hello, I'm",
-      roles: ["Solana Buidler", "Blockchain Developer", "Web3 Enthusiast"],
+      roles: ["Solana BUIDLER", "Community Builder", "Blockchain Developer"],
       viewWork: "View My Work",
     },
     about: {
       label: "// About Me",
       title: "Who Am I?",
-      bio1: "Passionate about building decentralized applications on Solana. Currently studying at DUT while leading the Superteam community and creating innovative Web3 solutions.",
-      bio2: "I believe in the power of blockchain technology to revolutionize how we interact with digital systems. My goal is to contribute to the Solana ecosystem by building tools and applications that push the boundaries of what's possible in Web3.",
+      bio1: "I'm a Mechanical Manufacturing Engineering student at Da Nang University of Science and Technology (DUT), passionate about blockchain and its real-world applications. My goal is to bridge engineering and blockchain technology.",
+      bio2: "I lead the DUT Superteam University Club (DSUC) under SuperteamVN, focusing on blockchain education within the Solana ecosystem. I'm also building Gimme Idea — a platform helping builders validate ideas through AI feedback and community insights.",
       stats: {
         projects: "Projects Built",
         years: "Years in Web3",
@@ -130,19 +130,19 @@ const translations: Record<Language, Translations> = {
       title: "Timeline",
       items: {
         dut: {
-          role: "Computer Science Student",
-          description: "Studying Computer Science while actively participating in blockchain development and Web3 communities.",
+          role: "Student",
+          description: "Studying Mechanical Manufacturing Engineering while actively participating in blockchain development and Web3 communities.",
         },
         dsuc: {
-          role: "Community Leader",
+          role: "President",
           description: "Founded and leading the first Solana-focused student club at DUT, organizing workshops, hackathons, and educational events.",
         },
         gmi: {
-          role: "Project Lead",
+          role: "Founder",
           description: "Created an innovative platform to help people brainstorm and develop their Web3 project ideas.",
         },
         superteam: {
-          role: "Community Contributor",
+          role: "Member",
           description: "Active member of Vietnam's premier Solana community, contributing to ecosystem growth and developer education.",
         },
       },
@@ -157,7 +157,7 @@ const translations: Record<Language, Translations> = {
         },
         grant: {
           event: "Grant Award",
-          description: "Received a grant to support the development of Web3 projects and community initiatives in Da Nang.",
+          description: "Received a grant to organize sports activities and connect the Solana community in Da Nang.",
         },
       },
       more: "More achievements coming soon...",
@@ -188,7 +188,7 @@ const translations: Record<Language, Translations> = {
       footer: {
         built: "Designed & Built by",
         rights: "All rights reserved.",
-        easter: "🎮 Try the Konami Code for a surprise!",
+        easter: "",
       },
     },
   },
@@ -203,14 +203,14 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: "// Xin chào, tôi là",
-      roles: ["Solana Buidler", "Blockchain Developer", "Web3 Enthusiast"],
+      roles: ["Solana BUIDLER", "Community Builder", "Blockchain Developer"],
       viewWork: "Xem dự án",
     },
     about: {
       label: "// Về tôi",
       title: "Tôi là ai?",
-      bio1: "Đam mê xây dựng các ứng dụng phi tập trung trên Solana. Hiện đang học tại ĐH Bách Khoa Đà Nẵng (DUT), đồng thời dẫn dắt cộng đồng Superteam và tạo ra các giải pháp Web3 sáng tạo.",
-      bio2: "Tôi tin vào sức mạnh của công nghệ blockchain trong việc thay đổi cách chúng ta tương tác với các hệ thống số. Mục tiêu của tôi là đóng góp cho hệ sinh thái Solana bằng cách xây dựng các công cụ và ứng dụng vượt qua giới hạn của Web3.",
+      bio1: "Tôi là sinh viên ngành Công nghệ Chế tạo máy tại Trường Đại học Bách khoa - Đại học Đà Nẵng (DUT), đam mê blockchain và các ứng dụng thực tế của nó. Mục tiêu của tôi là kết nối kỹ thuật cơ khí với công nghệ blockchain.",
+      bio2: "Tôi đang dẫn dắt DUT Superteam University Club (DSUC) thuộc SuperteamVN, tập trung vào giáo dục blockchain trong hệ sinh thái Solana. Tôi cũng đang xây dựng Gimme Idea — nền tảng giúp các builder xác thực ý tưởng qua phản hồi AI và insights từ cộng đồng.",
       stats: {
         projects: "Dự án đã xây dựng",
         years: "Năm trong Web3",
@@ -223,19 +223,19 @@ const translations: Record<Language, Translations> = {
       title: "Dòng thời gian",
       items: {
         dut: {
-          role: "Sinh viên CNTT",
-          description: "Đang học Công nghệ thông tin và tích cực tham gia phát triển blockchain và cộng đồng Web3.",
+          role: "Sinh viên",
+          description: "Đang học ngành Công nghệ Chế tạo máy và tích cực tham gia phát triển blockchain và cộng đồng Web3.",
         },
         dsuc: {
-          role: "Trưởng cộng đồng",
+          role: "Chủ nhiệm",
           description: "Sáng lập và dẫn dắt câu lạc bộ sinh viên đầu tiên tập trung vào Solana tại DUT, tổ chức workshop, hackathon và các sự kiện giáo dục.",
         },
         gmi: {
-          role: "Trưởng dự án",
+          role: "Người sáng lập",
           description: "Tạo ra nền tảng sáng tạo giúp mọi người brainstorm và phát triển ý tưởng dự án Web3.",
         },
         superteam: {
-          role: "Thành viên đóng góp",
+          role: "Thành viên",
           description: "Thành viên tích cực của cộng đồng Solana hàng đầu Việt Nam, đóng góp cho sự phát triển hệ sinh thái và giáo dục lập trình viên.",
         },
       },
@@ -250,7 +250,7 @@ const translations: Record<Language, Translations> = {
         },
         grant: {
           event: "Grant",
-          description: "Nhận tài trợ để hỗ trợ phát triển các dự án Web3 và sáng kiến cộng đồng tại Đà Nẵng.",
+          description: "Nhận tài trợ để tổ chức các hoạt động thể thao, kết nối cộng đồng Solana tại Đà Nẵng.",
         },
       },
       more: "Nhiều thành tựu khác sắp tới...",
@@ -281,7 +281,7 @@ const translations: Record<Language, Translations> = {
       footer: {
         built: "Thiết kế & Xây dựng bởi",
         rights: "Bản quyền thuộc về.",
-        easter: "🎮 Thử Konami Code để có bất ngờ!",
+        easter: "",
       },
     },
   },

@@ -1,65 +1,108 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
-const projects = [
-  {
-    title: "DUT Superteam Portal",
-    descriptionKey: "dsuc",
-    image: "/assets/dsuc.png",
-    tags: ["Next.js", "Solana", "TypeScript", "TailwindCSS"],
-    github: "https://github.com/lilzahs",
-    live: "#",
-    featured: true,
-  },
+type ProjectStatus = "live" | "pause" | "processing";
+
+interface Project {
+  title: string;
+  status: ProjectStatus;
+  description: string;
+  descriptionVi: string;
+  link?: string;
+  tags: string[];
+  gradient: string;
+}
+
+const projects: Project[] = [
   {
     title: "Gimme Idea",
-    descriptionKey: "gmi",
-    image: "/assets/GMI-AVT.png",
-    tags: ["React", "Node.js", "OpenAI", "PostgreSQL"],
-    github: "https://github.com/lilzahs",
-    live: "#",
-    featured: true,
+    status: "live",
+    description: "Platform for sharing ideas and receiving feedback from community and AI",
+    descriptionVi: "Nền tảng chia sẻ ý tưởng nhận feedback từ cộng đồng và AI",
+    link: "https://gimmeidea.com",
+    tags: ["Next.js", "AI", "Community"],
+    gradient: "from-yellow-500 to-orange-500",
   },
   {
-    title: "Solana NFT Marketplace",
-    descriptionKey: "nft",
-    image: "/assets/zahnft.png",
-    tags: ["Solana", "Anchor", "Rust", "Metaplex"],
-    github: "https://github.com/lilzahs",
-    live: "#",
-    featured: false,
+    title: "Atrax World",
+    status: "pause",
+    description: "Game with live donation mechanism to drop items in real-time",
+    descriptionVi: "Game có cơ chế live và donate realtime để drop items",
+    tags: ["Game", "Realtime", "Web3"],
+    gradient: "from-purple-500 to-pink-500",
   },
   {
-    title: "Web3 Wallet Tracker",
-    descriptionKey: "wallet",
-    image: "/assets/superteamvn.png",
-    tags: ["Next.js", "Solana", "Web3.js", "Chart.js"],
-    github: "https://github.com/lilzahs",
-    live: "#",
-    featured: false,
+    title: "DSUC Labs",
+    status: "live",
+    description: "Online workspace for DUT Superteam University Club",
+    descriptionVi: "Nơi làm việc online của CLB DUT Superteam University Club",
+    link: "https://dsuc.fun",
+    tags: ["Workspace", "Community", "Solana"],
+    gradient: "from-cyan-500 to-blue-500",
+  },
+  {
+    title: "RTS Game",
+    status: "processing",
+    description: "Online ninja RPG game with real-time mechanism based on real-world map like Pokemon Go",
+    descriptionVi: "Game online nhập vai ninja bảo vệ mật thư có cơ chế realtime theo map thực tế tương tự Pokemon Go",
+    tags: ["Game", "Realtime", "GPS"],
+    gradient: "from-green-500 to-emerald-500",
+  },
+  {
+    title: "Remit Bridge",
+    status: "processing",
+    description: "Crypto to cash transaction software supporting foreign workers with remittances",
+    descriptionVi: "Phần mềm giao dịch crypto thành tiền mặt lưu thông hỗ trợ cho lao động nước ngoài gửi kiều hối",
+    tags: ["Fintech", "Crypto", "Remittance"],
+    gradient: "from-red-500 to-rose-500",
   },
 ];
 
+const statusConfig: Record<ProjectStatus, { label: string; labelVi: string; color: string; icon: JSX.Element }> = {
+  live: {
+    label: "LIVE",
+    labelVi: "LIVE",
+    color: "bg-green-500",
+    icon: (
+      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+      </svg>
+    ),
+  },
+  pause: {
+    label: "PAUSED",
+    labelVi: "TẠM DỪNG",
+    color: "bg-yellow-500",
+    icon: (
+      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+        <rect x="6" y="4" width="4" height="16" rx="1" />
+        <rect x="14" y="4" width="4" height="16" rx="1" />
+      </svg>
+    ),
+  },
+  processing: {
+    label: "IN PROGRESS",
+    labelVi: "ĐANG PHÁT TRIỂN",
+    color: "bg-blue-500",
+    icon: (
+      <svg className="w-3 h-3 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+      </svg>
+    ),
+  },
+};
+
 export default function Projects() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
-  const { t } = useLanguage();
-
-  const getProjectDescription = (key: string) => {
-    const descriptions: Record<string, string> = {
-      dsuc: t.projects.items.dsuc,
-      gmi: t.projects.items.gmi,
-      nft: t.projects.items.nft,
-      wallet: t.projects.items.wallet,
-    };
-    return descriptions[key] || "";
-  };
+  const { t, language } = useLanguage();
 
   return (
     <section id="projects" className="py-24 md:py-32 relative overflow-hidden">
@@ -81,128 +124,120 @@ export default function Projects() {
           <h2 className="section-title">{t.projects.title}</h2>
         </motion.div>
 
-        {/* Featured Projects */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          {projects
-            .filter((p) => p.featured)
-            .map((project, index) => (
+        {/* Card Deck Layout */}
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+          {projects.map((project, index) => {
+            const status = statusConfig[project.status];
+            const isHovered = hoveredIndex === index;
+            
+            return (
               <motion.div
                 key={project.title}
-                initial={{ opacity: 0, y: 50 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                initial={{ opacity: 0, y: 50, rotateY: -15 }}
+                animate={inView ? { 
+                  opacity: 1, 
+                  y: 0, 
+                  rotateY: 0,
+                  scale: isHovered ? 1.08 : 1,
+                  zIndex: isHovered ? 50 : 10 - index,
+                } : {}}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: index * 0.1,
+                  scale: { duration: 0.3 },
+                }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className="relative w-full sm:w-[280px] md:w-[300px]"
+                style={{
+                  transformStyle: "preserve-3d",
+                }}
               >
-                <motion.div
-                  whileHover={{ y: -10 }}
-                  className="project-card h-full group"
+                {/* Card */}
+                <div
+                  className={`
+                    relative h-[380px] rounded-2xl overflow-hidden
+                    bg-gradient-to-br from-secondary-black/80 to-secondary-black/40
+                    backdrop-blur-md border-2 transition-all duration-300
+                    ${isHovered 
+                      ? "border-accent-yellow shadow-[0_0_40px_rgba(255,215,0,0.4)]" 
+                      : "border-white/10 hover:border-white/20"
+                    }
+                  `}
                 >
-                  {/* Project Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary-black to-transparent" />
-                    
-                    {/* Glitch Overlay */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute inset-0 bg-red-500/10 animate-pulse" style={{ clipPath: 'inset(0 0 70% 0)' }} />
-                      <div className="absolute inset-0 bg-cyan-500/10 animate-pulse" style={{ clipPath: 'inset(30% 0 30% 0)', animationDelay: '0.1s' }} />
-                      <div className="absolute inset-0 bg-yellow-500/10 animate-pulse" style={{ clipPath: 'inset(70% 0 0 0)', animationDelay: '0.2s' }} />
-                    </div>
-                  </div>
+                  {/* Glow Effect on Hover */}
+                  <div 
+                    className={`
+                      absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 transition-opacity duration-300
+                      ${isHovered ? "opacity-10" : ""}
+                    `}
+                  />
 
-                  {/* Content */}
-                  <div className="p-6">
-                    {/* Title */}
-                    <h3 className="text-xl font-bold font-display text-white mb-2 group-hover:text-accent-yellow transition-colors">
+                  {/* Card Top Decoration */}
+                  <div className={`h-2 w-full bg-gradient-to-r ${project.gradient}`} />
+
+                  {/* Card Content */}
+                  <div className="p-6 flex flex-col h-full">
+                    {/* Status Badge */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-white ${status.color}`}>
+                        {status.icon}
+                        <span>{language === "vi" ? status.labelVi : status.label}</span>
+                      </div>
+                      {project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg bg-white/5 hover:bg-accent-yellow/20 text-white/60 hover:text-accent-yellow transition-colors"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+
+                    {/* Project Title */}
+                    <h3 className={`text-xl font-bold font-display mb-3 transition-colors duration-300 ${isHovered ? "text-accent-yellow" : "text-white"}`}>
                       {project.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-white/70 text-sm mb-4 line-clamp-3">
-                      {getProjectDescription(project.descriptionKey)}
+                    <p className="text-white/70 text-sm leading-relaxed flex-grow">
+                      {language === "vi" ? project.descriptionVi : project.description}
                     </p>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/10">
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 text-xs font-mono text-accent-yellow/80 bg-accent-yellow/10 rounded-full"
+                          className={`
+                            px-3 py-1 text-xs font-mono rounded-full transition-colors duration-300
+                            ${isHovered 
+                              ? "bg-accent-yellow/20 text-accent-yellow" 
+                              : "bg-white/5 text-white/50"
+                            }
+                          `}
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    {/* Links */}
-                    <div className="flex gap-4">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm text-white/60 hover:text-accent-yellow transition-colors"
-                      >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                        {t.projects.code}
-                      </a>
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm text-white/60 hover:text-accent-yellow transition-colors"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                        {t.projects.live}
-                      </a>
+                    {/* Card Number */}
+                    <div className={`
+                      absolute bottom-4 right-4 text-6xl font-bold font-display opacity-5
+                      transition-opacity duration-300 ${isHovered ? "opacity-10" : ""}
+                    `}>
+                      {String(index + 1).padStart(2, "0")}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
-            ))}
-        </div>
-
-        {/* Other Projects */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-          {projects
-            .filter((p) => !p.featured)
-            .map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              >
-                <motion.div
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className="p-6 rounded-xl bg-secondary-black/30 backdrop-blur-md border border-white/5 hover:border-accent-yellow/30 transition-all duration-300 group h-full"
-                >
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-accent-yellow transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-white/60 text-sm mb-4 line-clamp-2">
-                    {getProjectDescription(project.descriptionKey)}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-1 text-xs font-mono text-white/50 bg-white/5 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              </motion.div>
-            ))}
+            );
+          })}
         </div>
 
         {/* View More */}
