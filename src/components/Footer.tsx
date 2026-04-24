@@ -14,7 +14,7 @@ export function Footer() {
           <a href="https://x.com/doandanh_zah" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Twitter (X)</a>
           <a href="https://t.me/doandanh_zah" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Telegram</a>
           <a href="https://github.com/doandanh-zah" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">GitHub</a>
-          <a href="https://facebook.com/doandanh_zah" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Facebook</a>
+          <a href="https://facebook.com/thezah.space" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Facebook</a>
         </p>
       </div>
     </footer>
