@@ -15,12 +15,12 @@ export function AboutZah() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="w-full lg:w-5/12 aspect-[4/5] border border-border overflow-hidden bg-surface relative group shrink-0"
+          className="w-full lg:w-5/12 aspect-[4/5] border border-border overflow-hidden bg-surface relative shrink-0"
         >
           <img 
-            src="/zah.jpg" 
+            src="/zah.png" 
             alt="Zah" 
-            className="w-full h-full object-cover filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+            className="w-full h-full object-cover"
           />
           <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-20">
             <div className="bg-background border border-border px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-foreground">
